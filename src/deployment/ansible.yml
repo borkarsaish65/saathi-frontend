@@ -1,13 +1,13 @@
 ---
 - hosts: saathi
   vars:
-    project_path: /opt/frontend/saathi-app/saathi-frontend
-    root_path: /opt/frontend
+    project_path: /home/saish/saathi-app/saathi-frontend
+    root_path: /home/saish/saathi-app
 
   tasks:
     - name: Slurp host file
       slurp:
-        src: "/opt/backend/deployment/.token"
+        src: "/home/saish/.token"
       register: slurpfile
 
     - name: Ensure project directory exists
