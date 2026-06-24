@@ -3,6 +3,9 @@
   vars:
     project_path: /home/saish/saathi-app/saathi-frontend
     root_path: /home/saish/saathi-app
+  environment:
+    PATH: "/home/saish/.nvm/versions/node/v20.20.2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+
 
   tasks:
     - name: Slurp host file
