@@ -30,7 +30,7 @@
     - name: set permission
       shell: chmod 744 {{ project_path }}/src/scripts/json2env.sh
 
-    --- Vault-dependent step, commented out until network connectivity to Vault is resolved ---
+    # --- Vault-dependent step, commented out until network connectivity to Vault is resolved ---
     - name: Fetch .env from Vault
       shell: >
         curl --location --request GET '{{ vaultAddress }}saathi-env'
@@ -56,7 +56,7 @@
     - name: Install dependencies
       shell: "cd {{ project_path }} && npm i --force"
 
-    --- Vault-dependent step, commented out until network connectivity to Vault is resolved ---
+    # --- Vault-dependent step, commented out until network connectivity to Vault is resolved ---
     - name: Fetch pm2 config file
       shell: >
         curl --location --request GET '{{ vaultAddress }}saathiPortalPM2Config'
