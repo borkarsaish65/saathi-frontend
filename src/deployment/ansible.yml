@@ -30,19 +30,19 @@
     - name: set permission
       shell: chmod 744 {{ project_path }}/src/scripts/json2env.sh
 
-    # --- Vault-dependent step, commented out until network connectivity to Vault is resolved ---
-    # - name: Fetch .env from Vault
-    #   shell: >
-    #     curl --location --request GET '{{ vaultAddress }}saathi-env'
-    #     --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}' | jq '.data' > '{{ project_path }}/data2.json'
-    #   register: env_response
+    --- Vault-dependent step, commented out until network connectivity to Vault is resolved ---
+    - name: Fetch .env from Vault
+      shell: >
+        curl --location --request GET '{{ vaultAddress }}saathi-env'
+        --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}' | jq '.data' > '{{ project_path }}/data2.json'
+      register: env_response
 
-    # - name: generate .env
-    #   shell: cat {{ project_path }}/data2.json | {{ project_path }}/src/scripts/json2env.sh > {{ project_path }}/.env
-    #   register: envConfig
+    - name: generate .env
+      shell: cat {{ project_path }}/data2.json | {{ project_path }}/src/scripts/json2env.sh > {{ project_path }}/.env
+      register: envConfig
 
-    # - debug:
-    #     msg: " cred {{ envConfig }} "
+    - debug:
+        msg: " cred {{ envConfig }} "
 
     - name: Remove the old build
       shell: "rm -rf {{ project_path }}/build"
@@ -56,12 +56,12 @@
     - name: Install dependencies
       shell: "cd {{ project_path }} && npm i --force"
 
-    # --- Vault-dependent step, commented out until network connectivity to Vault is resolved ---
-    # - name: Fetch pm2 config file
-    #   shell: >
-    #     curl --location --request GET '{{ vaultAddress }}saathiPortalPM2Config'
-    #     --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}'
-    #     | jq '.data.data' > '{{ project_path }}/pm2.config.json'
+    --- Vault-dependent step, commented out until network connectivity to Vault is resolved ---
+    - name: Fetch pm2 config file
+      shell: >
+        curl --location --request GET '{{ vaultAddress }}saathiPortalPM2Config'
+        --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}'
+        | jq '.data.data' > '{{ project_path }}/pm2.config.json'
 
     - name: Build saathi app
       shell: "cd {{ project_path }} && npm run build"
